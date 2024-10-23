@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-job-deployment
+  labels:
+    app: job-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-service
+  template:
+    metadata:
+      labels:
+        app: job-service
+    spec:
+      containers:
+      - name: job-service
+        image: safvancmc/chat-me-job-service:latest
+        ports:
+        - containerPort: 1240
+        envFrom:
+        - configMapRef:
+            name: job-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

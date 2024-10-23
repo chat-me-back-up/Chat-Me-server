@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-post-deployment
+  labels:
+    app: post-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      containers:
+      - name: post-service
+        image: safvancmc/chat-me-post-service:latest
+        ports:
+        - containerPort: 1238
+        envFrom:
+        - configMapRef:
+            name: post-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
