@@ -21,7 +21,6 @@ export const routes = (dependencies: IDependencies) => {
   const routerUtil = (path: string) => {
     return router.route(path);
   };
-  
   //get all the users
   routerUtil("/users").get(jwtMiddleware, roleVerification, getUsers);
 
